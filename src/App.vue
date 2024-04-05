@@ -1,16 +1,11 @@
-<template>
-    <div class="bg-red-500 p-4">this a page</div>
-    <div class="bg-red-500">
-        <router-view />
-    </div>
-</template>
-
 <script setup>
 
-
+import navigationbar from './components/navigationbar.vue';
 
 </script>
 
-<style scoped>
+<template>
 
-</style>
+    <navigationbar />
+    
+</template>
