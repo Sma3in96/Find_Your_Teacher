@@ -3,6 +3,7 @@ import CoachlistPage from './views/coaches/CoachlistPage.vue'
 import LoginPage from './views/auth/LoginPage.vue'
 import SignupPage from './views/auth/SignupPage.vue'
 import RequestReceived from './views/request/RequestReceived.vue'
+import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -11,7 +12,10 @@ const router = createRouter({
             path: '/Home',
             component: CoachlistPage
         },
-
+        {
+            path: '/Register',
+            component: CoachregistrationPage
+        },
         {
             path: '/Login',
             component: LoginPage
