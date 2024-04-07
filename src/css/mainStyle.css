@@ -7,3 +7,11 @@
         @apply min-h-screen
     }
 }
+
+:root {
+    --color-1: #1693a5;
+    --color-10: #1693a5;
+    --color-20: #7ececa;
+    --color-30: #a0ded6;
+    --color-40: #c7ede8;
+}
