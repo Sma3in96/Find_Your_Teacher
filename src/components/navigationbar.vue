@@ -27,13 +27,20 @@ const showmobilemenu = ref(false)
 <style scoped>
     .nav-bar{ 
         background-color: var(--color-10);
-        height: 48px;
+        height: 55px;
+        position: fixed;
+        width: 100%;
     }
     .inline-list {
         list-style-type: none;
-        padding: 0;
         display: flex;
         justify-content: space-between center;
+        align-items: center;
+        padding: 1rem;
+        left: 0;
+        top: 0;
+        width: 100%;
+
     }
     .inline-list li{
         display:inline-block;
@@ -41,6 +48,7 @@ const showmobilemenu = ref(false)
     }
     .inline-list li:last-child { 
         margin-left: auto;
+        margin-right: 0px;
     }
     .inline-list li:first-child {
         margin-right: auto;
