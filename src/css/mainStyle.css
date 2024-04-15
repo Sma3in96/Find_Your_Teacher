@@ -4,7 +4,11 @@
 
 @layer base {
     body {
-        @apply min-h-screen
+        @apply min-h-[200vh] relative pt-[72px] text-white;
+    }
+
+    box-icon {
+        @apply fill-current;
     }
 }
 

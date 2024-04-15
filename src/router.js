@@ -9,28 +9,29 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/Home',
+            path: '/',
             component: CoachlistPage
         },
         {
-            path: '/Register',
+            path: '/register',
             component: CoachregistrationPage
         },
         {
-            path: '/Login',
+            path: '/login',
             component: LoginPage
         },
 
         {
-            path: '/Signup',
+            path: '/signup',
             component: SignupPage
         },
 
         {
-            path: '/Requests',
+            path: '/requests',
             component: RequestReceived
         }
-    ]
+    ],
+    linkActiveClass: 'act-link',
 })
 
 export default router
