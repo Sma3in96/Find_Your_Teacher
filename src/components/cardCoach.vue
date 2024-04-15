@@ -15,11 +15,10 @@ export default {
 
 <style scoped>
 .c-card {
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
-  width: 200px;
+  border: 2px outset #000;
+  border-radius: 10px;
+  padding: 40px;
+  margin: 40px;
 }
 .coach-image {
   width: 100%;

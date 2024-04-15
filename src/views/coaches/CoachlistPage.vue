@@ -2,7 +2,7 @@
     <div class="search-bar">
         <input type="text" v-model="searchQuery" @input="filterCoaches" placeholder="Search for a coach">
     </div>
-    <div class="bg-red-500">
+    <div class="bg-blue-600">
         <cardCoach v-for="coach,index in coachs" :key="index" :coach="coach"></cardCoach>
     </div>
 </template>
@@ -25,5 +25,6 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
 
