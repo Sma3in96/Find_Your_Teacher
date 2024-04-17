@@ -1,5 +1,5 @@
 <template>
-    <header class="p-4 bg-sky-500 flex items-center justify-between fixed w-full top-0 text-white">
+    <header class="p-4 bg-sky-600 flex items-center justify-between fixed w-full top-0 text-white">
         <div
             @click="closeNav()"
             v-if="isClose"
