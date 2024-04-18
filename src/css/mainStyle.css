@@ -4,11 +4,15 @@
 
 @layer base {
     body {
-        @apply min-h-[200vh] relative pt-[72px] text-white;
+        @apply bg-sky-900 text-white;
     }
 
     box-icon {
         @apply fill-current;
+    }
+
+    #app {
+        @apply min-h-[100vh]
     }
 }
 

@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import CoachlistPage from './views/coaches/CoachlistPage.vue'
-import LoginPage from './views/auth/LoginPage.vue'
-import SignupPage from './views/auth/SignupPage.vue'
-import RequestReceived from './views/request/RequestReceived.vue'
-import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import CoachlistPage from './views/coaches/CoachlistPage.vue';
+import LoginPage from './views/auth/LoginPage.vue';
+import SignupPage from './views/auth/SignupPage.vue';
+import RequestReceived from './views/request/RequestReceived.vue';
+import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -13,25 +13,30 @@ const router = createRouter({
             component: CoachlistPage
         },
         {
-            path: '/register',
+            path: '/coaches',
             component: CoachregistrationPage
         },
         {
-            path: '/login',
-            component: LoginPage
-        },
-
-        {
-            path: '/signup',
-            component: SignupPage
-        },
-
-        {
             path: '/requests',
-            component: RequestReceived
-        }
+            component: RequestReceived,
+        },
+        {
+            path: '/register',
+            component: CoachregistrationPage
+        },
+        // AUTH
+        {
+            path: '/auth/login',
+            component: LoginPage,
+            name: 'login'
+        },
+        {
+            path: '/auth/signup',
+            component: SignupPage,
+            name: 'signup'
+        },
     ],
     linkActiveClass: 'act-link',
-})
+});
 
-export default router
+export default router;
