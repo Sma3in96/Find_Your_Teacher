@@ -1,25 +1,10 @@
 <template>
-
-    <header class="p-4 bg-sky-600 flex items-center justify-between fixed w-full top-0 text-white">
-        <div
-            @click="closeNav()"
-            v-if="isClose"
-            class="fixed hidden max-[850px]:block inset-0 z-10 bg-black bg-opacity-50"
-        ></div>
-        <div class="flex">
-            <button
-                @click="openNav()"
-                class="hidden max-[850px]:block"
-            >
-                <box-icon
-                    name='menu'
-                    size="md"
-                ></box-icon>
-            </button>
-            <!-- LOGO -->
-            <router-link to="/">
-                <h1 class="text-2xl font-bold">LOGO</h1>
-            </router-link>
+    <header
+        :class="{ 'scroll-act': isScroll }"
+        class="bg-blue-900 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
+    >
+        <div class="flex py-4">
+            <h1 class="font-bold text-2xl">LOGO</h1>
         </div>
 
         <div class="routers h-full divide-line relative pl-4 flex justify-between flex-1 font-semibold">

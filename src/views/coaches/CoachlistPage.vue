@@ -1,5 +1,4 @@
 <template>
-
     <div class="search-bar">
         <button
             v-if="!showSearch"
@@ -33,7 +32,7 @@
         <router-link to="/register">
             <button>Register as coach</button>
         </router-link>
-        <coachregistration @form-submitted="handleForm" />
+        <!-- <coachregistration @form-submitted="handleForm" /> -->
     </div>
     <div class="bg-blue-900 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow">
         <cardCoach
@@ -101,33 +100,6 @@ input {
     color: black;
 }
 
-.arrow-back {
-    padding: 5px;
-    width: 40px;
-    height: 30px;
-    color: black;
-    margin-left: -10px;
-}
-.search-bar {
-    background-color: rgb(135,206,235);
-    margin: 40px;
-    border-radius: 10px;
-    height: auto;
-    padding: 5px;
-    
-}
-.Coach-card {
-    background-color: rgb(2,132,199);
-    margin: 40px;
-    border-radius: 10px;
-    height: auto;
-    padding: 1px;
-}
-.search-icon {
-    padding: 5px;
-    font-size: 15px;
-    color: black;
-}
 .arrow-back {
     padding: 5px;
     width: 40px;
