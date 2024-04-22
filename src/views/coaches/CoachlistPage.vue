@@ -33,6 +33,13 @@
         <button class="filter-icon">
                 <box-icon name='filter'></box-icon>
         </button>
+
+        <div class="filter-options">
+        <!-- Your filter options go here -->
+        <label><input type="checkbox"> Option 1</label><br>
+        <label><input type="checkbox"> Option 2</label><br>
+        <label><input type="checkbox"> Option 3</label><br>
+        </div>
     </div>
 
 <div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
