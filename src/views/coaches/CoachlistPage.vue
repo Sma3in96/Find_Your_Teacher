@@ -32,7 +32,7 @@
         <router-link to="/register">
             <button>Register as coach</button>
         </router-link>
-        <!-- <coachregistration @form-submitted="handleForm" /> -->
+        <coachregistration class="hidden" @form-submitted="handleForm" />
     </div>
     <div class="bg-blue-900 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow">
         <cardCoach
@@ -45,12 +45,12 @@
 <script setup>
 import { ref } from 'vue';
 import cardCoach from "../../components/cardCoach.vue";
-import coaches from "@/hooks/coachs";
+import { sharedData } from "../../hooks/coachs";
 import coachregistration from './CoachregistrationPage.vue';
 
 
 const searchQuery = ref('');
-const filteredCoaches = ref(coaches);
+const filteredCoaches = ref(sharedData.coaches);
 const showSearch = ref(false);
 
 const toggleSearch = () => {
@@ -62,7 +62,7 @@ const toggleSearch = () => {
 const filterCoaches = () => {
     if (searchQuery.value) {
         console.log(searchQuery.value);
-        filteredCoaches.value = coaches.filter(coach => coach.name.includes(searchQuery.value));
+        filteredCoaches.value = coaches.filter(coach => coach.FullName.includes(searchQuery.value));
     } else {
         filteredCoaches.value = coaches;
     }

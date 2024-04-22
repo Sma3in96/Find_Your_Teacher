@@ -46,35 +46,40 @@
             </div>
 
             <button @click.prevent="submitFunction" class="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                SUBMIT
+                <router-link to="/"> SUBMIT </router-link> 
             </button>
     </form>
     </div>
   </template>
   
-  <script setup>
-  import { ref } from 'vue';
+<script setup>
+    import { ref } from 'vue';
 
-  import { defineEmits } from 'vue';
-
-    const emit = defineEmits(['form-submitted']);
-
+    import { sharedData } from '@/hooks/coachs';
   
-  const formData = {
-    firstName: ref(''),
-    secondName: ref(''),
-    email: ref(''),
-    description: ref(''),
-    skills: ref(''),
-    linkLinkedIn: ref(''),
-    phone: ref(''),
-    terms: ref(false)
-  };
-  
-  const submitFunction = () => {
-    emit('form-submitted', formData);
-  };
-  </script>
+    const formData = {
+        firstName: ref(''),
+        secondName: ref(''),
+        email: ref(''),
+        description: ref(''),
+        skills: ref(''),
+        linkLinkedIn: ref(''),
+        phone: ref(''),
+        terms: ref(false)
+    };
+    const submitFunction = () => {
+        sharedData.coaches.push({
+            FullName : formData.firstName.value + formData.secondName.value, 
+            Mail : formData.email.value,
+            Description : formData.description.value,
+            Skills : formData.skills.value,
+            Link : formData.linkLinkedIn.value,
+            Price : "0",
+            pic_link : ""
+    })
+}
+
+</script>
   
 
 <style scoped>
