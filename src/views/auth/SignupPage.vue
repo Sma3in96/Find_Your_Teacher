@@ -1,8 +1,8 @@
 <template>
     <div class="max-w-xl mx-auto">
         <div class="text-center mb-8">
-            <p class="text-lg font-semibold">Start your journey with us. Sign up now!</p>
-            <p class="text-sm text-blue-600">please fill the form below and submit your informations</p>
+            <p class="text-lg text-teal-500 font-semibold">Start your journey with us. Sign up now!</p>
+            <p class="text-sm text-teal-800">please fill the form below and submit your informations</p>
         </div>
         
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -45,7 +45,7 @@
             <p class="text-sm text-gray-600 mt-2">Already have an account?</p> <router-link to="/auth/login">Login</router-link>
             </div>
 
-            <button @click.prevent="submitFunction" class="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button @click.prevent="submitFunction" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 SUBMIT
             </button>
             </form>
