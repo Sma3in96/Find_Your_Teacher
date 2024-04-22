@@ -1,22 +1,23 @@
 <template>
-    <div class="search-bar">
-        <button
+    <div class="search-bar bg-teal-900 p-6 bg-opacity-50 justify-between rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
+        <div class="flex gap-4">
+            <button
             v-if="!showSearch"
             @click="toggleSearch"
         >
-            <box-icon
+            <box-icon class=" search-icon w-8 h-8"
                 name='search-alt-2'
-                class="search-icon"
             ></box-icon>
-        </button>
-
+            </button>
+            
         <input
+            class="bg-teal-100 text-xl text-black border rounded p-1"
             v-if="showSearch"
             type="text"
             v-model="searchQuery"
             @input="filterCoaches"
             placeholder="Search for a coach"
-            class="bg-white text-xl"
+            
         >
         <button
             v-if="showSearch"
@@ -27,19 +28,26 @@
                 class="arrow-back"
             ></box-icon>
         </button>
+        </div>
+
+        <button class="filter-icon">
+                <box-icon name='filter'></box-icon>
+        </button>
     </div>
-    <div>
+
+<div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
+    <div class="flex justify-end">
         <router-link to="/register">
-            <button>Register as coach</button>
+            <button class="font-semibold bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
         <!-- <coachregistration @form-submitted="handleForm" /> -->
     </div>
-    <div class="bg-blue-900 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow">
         <cardCoach
             v-for="coach in filteredCoaches"
             :coach="coach"
         ></cardCoach>
-    </div>
+</div>
+
 </template>
 
 <script setup>
@@ -75,28 +83,13 @@ function handleForm(formData) {
 </script>
 
 <style scoped>
-input {
-    position: static;
-    margin: 20px;
-    width: 300px;
-    padding: 10px;
-    border: 2px solid #000000;
-    border-radius: 10px;
-    font-size: 16px;
-    text-shadow: 2px 2px 5px black;
-}
-
-.search-bar {
-    background-color: rgb(135, 206, 235);
-    margin: 40px;
-    border-radius: 10px;
-    height: auto;
-    padding: 5px;
-}
 
 .search-icon {
-    padding: 5px;
-    font-size: 15px;
+color: black;
+padding: 5px;
+}
+
+.filter-icon {
     color: black;
 }
 
@@ -107,4 +100,5 @@ input {
     color: black;
     margin-left: -10px;
 }
+
 </style>

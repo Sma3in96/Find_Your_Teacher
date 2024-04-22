@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply bg-sky-900 text-white;
+        @apply bg-teal-200 text-white;
     }
 
     box-icon {
