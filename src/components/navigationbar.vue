@@ -1,7 +1,7 @@
 <template>
     <header
         :class="{ 'scroll-act': isScroll }"
-        class="bg-blue-900 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
+        class="bg-teal-800 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
     >
         <div class="flex py-4">
             <h1 class="font-bold text-2xl">LOGO</h1>
@@ -12,7 +12,7 @@
                 <span
                     v-show="authPage"
                     ref="activeLink"
-                    class="absolute bottom-0 left-[15px] h-full w-[82px] duration-300 ease-out transition-all border-b-[4px] bg-sky-500"
+                    class="absolute bottom-0 left-[15px] h-full w-[82px] duration-300 ease-out transition-all border-b-[4px] bg-teal-500"
                 ></span>
                 <router-link
                     to="/"
@@ -142,7 +142,7 @@ nav a box-icon {
 }
 
 .auth-actions a {
-    @apply bg-sky-500 px-4 py-2 grid place-content-center relative z-10;
+    @apply bg-teal-500 px-4 py-2 grid place-content-center relative z-10;
 }
 
 .auth-actions a div {

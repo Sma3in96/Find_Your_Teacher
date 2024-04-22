@@ -1,8 +1,8 @@
 <template>
     <div class="max-w-xl mx-auto">
         <div class="text-center mb-8">
-            <p class="text-lg font-semibold">Here you can register as a Teacher in our website</p>
-            <p class="text-sm text-blue-600">please fill the form below and submit your informations</p>
+            <p class="text-lg text-teal-500 font-semibold">Here you can register as a Teacher in our website</p>
+            <p class="text-sm text-teal-800">please fill the form below and submit your informations</p>
         </div>
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
@@ -45,8 +45,9 @@
                 <label for="accept-terms" class="ml-2 text-sm text-gray-700">I accept the terms</label>
             </div>
 
-            <button @click.prevent="submitFunction" class="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                <router-link to="/"> SUBMIT </router-link> 
+
+            <button @click.prevent="submitFunction" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <router-link to="/"> SUBMIT </router-link>
             </button>
     </form>
     </div>

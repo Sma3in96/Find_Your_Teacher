@@ -1,9 +1,9 @@
 <template>
-    <div class="bg-sky-500 p-4 bg-opacity-50 rounded border-white border">
+    <div class="bg-teal-200 p-4 bg-opacity-50 rounded text-black border-white border">
       <div class="flex justify-between items-center font-semibold">
         <div class="flex gap-4 items-center">
           <img
-            class="bg-red-500 size-[55px] rounded-full border"
+            class="bg-teal-100 size-[55px] rounded-full border"
             src=""
             alt=""
           >
