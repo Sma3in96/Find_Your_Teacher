@@ -7,12 +7,12 @@
             src=""
             alt=""
           >
-          <p>{{ coach.FullName }}</p>
+          <p>{{ coach.firstName + ' ' + coach.secondName }}</p>
         </div>
-        <div>{{ `$${coach.Price}/hour` }}</div>
+        <div>{{ `$${coach.price}/hour` }}</div>
       </div>
       <div class="flex items-center justify-between mt-4 gap-3">
-        <div class="max-[500px]:text-balance">{{ coach.Description }}</div>
+        <div class="max-[500px]:text-balance">{{ coach.description }}</div>
         <div class="flex items-center gap-4">
           <button>
             <box-icon
