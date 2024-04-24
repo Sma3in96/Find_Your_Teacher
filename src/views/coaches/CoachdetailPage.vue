@@ -1,21 +1,22 @@
 <template>
     <div class="container mx-auto mt-10">
-        <div class="bg-white rounded-lg shadow-lg p-8 items-center ">
-        <div class="mr-4">
-            <img :src="userprofile" :alt="name" class="w-32 h-32 rounded-full bg-black">
-        </div>
-            <h1 class="text-2xl text-black font-bold mb-4">username</h1>
-            <p class="text-gray-600 mb-2">skills:</p>
-            <p class="text-gray-600 mb-2">Age:</p>
-            <p class="text-gray-600 mb-2">Location:</p>
+        <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col md:flex-row md:items-start md:justify-between">
+            <div class="mb-4 md:mb-0 md:pr-4 md:mr-0 md:border-r md:border-gray-300">
+            <img :src="userprofile" :alt="name" class="w-48 h-48 rounded-full bg-black mx-auto md:mx-0">
+            </div>
+            <div class="text-center md:text-left">
+            <h1 class="text-2xl text-black font-bold mb-4">Username</h1>
+            <p class="text-gray-600 mb-2">Phone:</p>
+            <p class="text-gray-600 mb-2">Skills:</p>
+            <p class="text-gray-600 mb-2">Price:</p>
             <h2 class="text-2xl text-black font-bold mb-4">Description</h2>
-            
-            <p>description</p>
+            <p>Description</p>
             <a :href="linkedin" class="text-blue-500 hover:underline">LinkedIn Profile</a>
         </div>
-        <button @click="makearequest" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Make a request</button>
-    </div>
-    <!--requests section-->
+            <button @click="makearequest" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 md:mt-0 self-center md:self-end">Make a request</button>
+        </div>
+        </div>
+        <!--requests section-->
     <div class="container mx-auto mt-5" v-if="showRequest">
         <div class="bg-white rounded-lg shadow-lg p-8 items-center ">
             <textarea v-model="newrequest" placeholder="contact the coach" class="border rounded-lg px-3 py-2 mb-4 w-full text-black"></textarea>
