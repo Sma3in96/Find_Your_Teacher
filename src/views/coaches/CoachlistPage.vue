@@ -47,7 +47,7 @@
         <router-link to="/register">
             <button class="font-semibold bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
-        <!-- <coachregistration @form-submitted="handleForm" /> -->
+        <coachregistration class="hidden" @form-submitted="handleForm" />
     </div>
         <cardCoach
             v-for="coach in filteredCoaches"
@@ -58,15 +58,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import cardCoach from "../../components/cardCoach.vue";
-import coaches from "@/hooks/coachs";
+import {db} from '../../firebase.js';
+import {getDocs, collection} from 'firebase/firestore'
 import coachregistration from './CoachregistrationPage.vue';
 
 
 const searchQuery = ref('');
-const filteredCoaches = ref(coaches);
+const filteredCoaches = ref([]);
 const showSearch = ref(false);
+
+onMounted( async () => {
+    let coaches = await getDocs(collection(db, 'coachs'))
+    coaches.forEach((coach) => {
+        filteredCoaches.value.push(coach.data());
+    })
+})
 
 const toggleSearch = () => {
     showSearch.value = !showSearch.value;
@@ -77,9 +85,9 @@ const toggleSearch = () => {
 const filterCoaches = () => {
     if (searchQuery.value) {
         console.log(searchQuery.value);
-        filteredCoaches.value = coaches.filter(coach => coach.name.includes(searchQuery.value));
+        filteredCoaches.value = sharedData.coaches.filter(coach => coach.FullName.includes(searchQuery.value));
     } else {
-        filteredCoaches.value = coaches;
+        filteredCoaches.value = sharedData.coaches;
     }
 };
 
