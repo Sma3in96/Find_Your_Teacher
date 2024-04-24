@@ -58,15 +58,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import cardCoach from "../../components/cardCoach.vue";
-import { sharedData } from "../../hooks/coachs";
+import {db} from '../../firebase.js';
+import {getDocs, collection} from 'firebase/firestore'
 import coachregistration from './CoachregistrationPage.vue';
 
 
 const searchQuery = ref('');
-const filteredCoaches = ref(sharedData.coaches);
+const filteredCoaches = ref([]);
 const showSearch = ref(false);
+
+onMounted( async () => {
+    let coaches = await getDocs(collection(db, 'coachs'))
+    coaches.forEach((coach) => {
+        filteredCoaches.value.push(coach.data());
+    })
+})
 
 const toggleSearch = () => {
     showSearch.value = !showSearch.value;
@@ -77,9 +85,9 @@ const toggleSearch = () => {
 const filterCoaches = () => {
     if (searchQuery.value) {
         console.log(searchQuery.value);
-        filteredCoaches.value = coaches.filter(coach => coach.FullName.includes(searchQuery.value));
+        filteredCoaches.value = sharedData.coaches.filter(coach => coach.FullName.includes(searchQuery.value));
     } else {
-        filteredCoaches.value = coaches;
+        filteredCoaches.value = sharedData.coaches;
     }
 };
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "boxicons": "^2.1.4",
+    "firebase": "^10.11.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
