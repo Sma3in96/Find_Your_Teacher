@@ -47,11 +47,11 @@
         <router-link to="/register">
             <button class="font-semibold bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
-        <coachregistration class="hidden" @form-submitted="handleForm" />
     </div>
         <cardCoach
             v-for="coach in filteredCoaches"
             :coach="coach"
+            :key="coach.id"
         ></cardCoach>
 </div>
 
@@ -62,38 +62,40 @@ import { ref, onMounted } from 'vue';
 import cardCoach from "../../components/cardCoach.vue";
 import {db} from '../../firebase.js';
 import {getDocs, collection} from 'firebase/firestore'
-import coachregistration from './CoachregistrationPage.vue';
 
 
 const searchQuery = ref('');
+let allCoaches = [];
 const filteredCoaches = ref([]);
 const showSearch = ref(false);
 
 onMounted( async () => {
     let coaches = await getDocs(collection(db, 'coachs'))
     coaches.forEach((coach) => {
-        filteredCoaches.value.push(coach.data());
+        allCoaches.push({
+            id: coach.id,
+            data: coach.data()});
     })
+    filteredCoaches.value = allCoaches;
+
 })
 
 const toggleSearch = () => {
     showSearch.value = !showSearch.value;
     searchQuery.value = '';
-    filteredCoaches.value = coaches;
+    filteredCoaches.value = allCoaches;
 }
 
 const filterCoaches = () => {
     if (searchQuery.value) {
         console.log(searchQuery.value);
-        filteredCoaches.value = sharedData.coaches.filter(coach => coach.FullName.includes(searchQuery.value));
+        filteredCoaches.value = allCoaches.filter(coach => coach.data.firstName.includes(searchQuery.value));
     } else {
-        filteredCoaches.value = sharedData.coaches;
+        filteredCoaches.value = allCoaches;
     }
 };
 
-function handleForm(formData) {
-    console.log(formData);
-}
+
 
 </script>
 
