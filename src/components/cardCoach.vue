@@ -7,12 +7,12 @@
             src=""
             alt=""
           >
-          <p>{{ coach.firstName + ' ' + coach.secondName }}</p>
+          <p><router-link :to="{name: 'coachprofile', params: {id: coach.id, data: coach.data}}">{{ coach.data.firstName + ' ' + coach.data.secondName }}</router-link></p>
         </div>
-        <div>{{ `$${coach.price}/hour` }}</div>
+        <div>{{ `$${coach.data.price}/hour` }}</div>
       </div>
       <div class="flex items-center justify-between mt-4 gap-3">
-        <div class="max-[500px]:text-balance">{{ coach.description }}</div>
+        <div class="max-[500px]:text-balance">{{ coach.data.description }}</div>
         <div class="flex items-center gap-4">
           <button>
             <box-icon
@@ -33,8 +33,12 @@
   
   <script>
   export default {
-    props: [ 'coach' ]
-  };
+    props: {
+      coach: {
+        type: Object,
+        required: true
+      }
+    }};
   </script>
   
   <style scoped></style>

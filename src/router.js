@@ -37,8 +37,10 @@ const router = createRouter({
             name: 'signup'
         },
         {
-            path: '/coachprofile',
+            path: '/coachprofile/:id',
             component: CoachdetailPage,
+            name: 'coachprofile',
+            props: true,
         },
     ],
     linkActiveClass: 'act-link',

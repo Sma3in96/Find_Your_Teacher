@@ -130,7 +130,9 @@
             linkedIn: formData.linkLinkedIn.value,
             phone: formData.phone.value,
             price: formData.price.value,
-            pic_link: ""
+            pic_link: "",
+            comments: [],
+            requests: []
         });
         router.push('/');
     }
