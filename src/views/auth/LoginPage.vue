@@ -3,46 +3,61 @@
         <div class="text-center mb-8">
             <p class="text-lg text-teal-500 font-semibold mt-5">Welcome back! Please login to your account.</p>
         </div>
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <Form @submit="submitFunction" :validation-schema="schema" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Email :</label>
-                <input type="link" placeholder="Enter your email" v-model="formData.EmailPhone.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <Field type="email" name="email" id="email" placeholder="Enter your E-mail " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="email" class="text-xs text-red-500" />
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Password :</label>
-                <input type="link" placeholder="Enter your password" v-model="formData.Password.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <Field type="password" name="password" id="password" placeholder="Enter your Password " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="password" class="text-xs text-red-500" />
             </div>
 
             <div>
-            <p class="text-sm text-gray-600 mt-2">Don't have an account?</p> <router-link to="/auth/signup">Sign Up</router-link>
+            <p class="text-sm text-gray-600 mt-2">U don't have an account?</p> <router-link to="/auth/signup">Sign Up</router-link>
             </div>
 
-            <button @click.prevent="submitFunction" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Login
+            <button type="submit" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                SUBMIT
             </button>
-            </form>
-        </div>
+        </Form>
+    </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
+import { auth } from '@/firebase.js';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import  router  from '@/router.js';
+import { useStore } from 'vuex';
 
-import { defineEmits } from 'vue';
+const store = useStore();
 
-    const emit = defineEmits(['form-submitted']);
+const schema = yup.object({
+    email: yup.string().email("Invalid email format").required("Email is required"),
+    password: yup.string().required("Password is required")
+});
 
+const submitFunction = async (values) => {
+    try {
+        await signInWithEmailAndPassword(auth, values.email, values.password)
+        .then(() => {
+            store.dispatch('login');
+            router.push('/')
+        }).catch((err) => {
+            alert("error")
+        });
 
-const formData = {
-    EmailPhone: ref(''),
-    Password: ref (''),
+    } catch (e) { 
+        alert("something went wrong")
+    }
 };
 
-const submitFunction = () => {
-    emit('form-submitted', formData);
-};
+
 </script>
 
 <style scoped>

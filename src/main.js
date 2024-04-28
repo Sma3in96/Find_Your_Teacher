@@ -5,9 +5,11 @@ import App from './App.vue'
 import "./css/mainStyle.css"
 import router from './router'
 import 'boxicons'
-import { sharedData } from './hooks/coachs'
+
+import store from './store.js'
+
 
 const app = createApp(App)
-app.config.globalProperties.$sharedData = sharedData;
 app.use(router);
+app.use(store);
 app.mount('#app')

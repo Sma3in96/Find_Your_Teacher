@@ -45,7 +45,7 @@
 <div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
     <div class="flex justify-end">
         <router-link to="/register">
-            <button class="font-semibold bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
+            <button class=" bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
     </div>
         <cardCoach

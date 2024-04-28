@@ -5,81 +5,76 @@
             <p class="text-sm text-teal-800">please fill the form below and submit your informations</p>
         </div>
         
-        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <Form @submit="submitFunction" :validation-schema="schema" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Full Name :</label>
-                <input type="text" placeholder="Enter your full name" required v-model="formData.fullname.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Username :</label>
+                <Field type="text" name="username" id="username" placeholder="Enter your username " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="userName" class="text-xs text-red-500" />
             </div>
-
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">E-mail :</label>
-                <input type="email" placeholder="Enter your email" required v-model="formData.email.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Phone number :</label>
-                <input type="link" placeholder="Enter your phone number"v-model="formData.phone.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Email :</label>
+                <Field type="email" name="email" id="email" placeholder="Enter your E-mail " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="email" class="text-xs text-red-500" />
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Password :</label>
-                <input type="link" placeholder="Enter your password" v-model="formData.Password.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <Field type="password" name="password" id="password" placeholder="Enter your Password " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="password" class="text-xs text-red-500" />
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Password Confirmation :</label>
-                <input type="link" placeholder="Confirm your password"v-model="formData.passwordconfirmation.value"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-
-            <div class="mb-4 flex items-center">
-                <input type="checkbox" id="accept-terms" v-model="formData.terms.value" class="form-checkbox h-4 w-4 text-blue-500">
-                <label for="accept-terms" class="ml-2 text-sm text-gray-700">I accept the terms</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2">password confirmation :</label>
+                <Field type="password" name="passwordConfirmation" id="passwordConfirmation" placeholder="Re-Enter your Password  " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <ErrorMessage name="passwordConfirmation" class="text-xs text-red-500" />
             </div>
 
             <div>
             <p class="text-sm text-gray-600 mt-2">Already have an account?</p> <router-link to="/auth/login">Login</router-link>
             </div>
 
-            <button @click.prevent="submitFunction" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 SUBMIT
             </button>
-            </form>
-
-        </div>
+        </Form>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { auth } from '@/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '@/firebase';
+import { setDoc, doc } from 'firebase/firestore';
+import { Form, Field, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
 
-import { defineEmits } from 'vue';
+const schema = yup.object({
+    username: yup.string().required("Username is required").min(3, "username must be at least 3 characters"),
+    email: yup.string().email("Invalid email format").required("Email is required"),
+    password: yup.string().required("Password is required").min(6, "Password must be at least 8 characters"),
+    passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required("Password confirmation is required"),
+});
 
-    const emit = defineEmits(['form-submitted']);
+const submitFunction = async (values) => {
+    try {
+        await createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then((res) => {
+            setDoc(doc(db, 'users', res.user.uid), {
+            userName: values.username,
+            coach: false
+            })
+        }).catch((err) => {console.log(err)});
 
-
-const formData = {
-    fullname: ref(''),
-    email: ref(''),
-    phone: ref(''),
-    Password: ref (''),
-    passwordconfirmation: ref(''),
-    terms: ref(false)
-
-};
-
-const submitFunction = () => {
-    emit('form-submitted', formData);
+    } catch (e) { 
+        alert("something went wrong")
+    }
 };
 </script>
 
 <style scoped>
     form {
-    background-color: #eee;
-    color: #000
-}
-
+        background-color: #eee;
+        color: #000
+    }
 </style>
