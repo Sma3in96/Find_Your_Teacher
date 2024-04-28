@@ -6,6 +6,7 @@ import RequestReceived from './views/request/RequestReceived.vue';
 import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue';
 import CoachdetailPage from './views/coaches/CoachdetailPage.vue';
 
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -41,7 +42,7 @@ const router = createRouter({
             component: CoachdetailPage,
             name: 'coachprofile',
             props: true,
-        },
+        }
     ],
     linkActiveClass: 'act-link',
 });

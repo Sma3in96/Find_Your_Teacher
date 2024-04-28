@@ -42,13 +42,22 @@
 
             <div class="auth-actions flex divide-x-1">
                 <router-link
+                    v-show="userLogged"
+                    to="/"
+                    @click="logout()"
+                >
+                    <div >logout</div>
+                    <box-icon name='log-out-circle'></box-icon>
+                </router-link>
+                <router-link
+                    v-show="!userLogged"
                     class="border-r-2"
                     to="/auth/login"
                 >
                     <div>login</div>
                     <box-icon name='log-in-circle'></box-icon>
                 </router-link>
-                <router-link to="/auth/signup">
+                <router-link to="/auth/signup" v-show="!userLogged">
                     <div>signup</div>
                     <box-icon name='mouse-alt'></box-icon>
                 </router-link>
@@ -60,12 +69,28 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
+import router from '@/router.js';
+import { auth } from '@/firebase';
+import { signOut } from 'firebase/auth';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
 
 const route = useRoute();
 
 const activeLink = ref(null);
 const isScroll = ref(false);
 const authPage = computed(() => route.name === 'login' || route.name === 'signup' ? false : true);
+const userLogged = computed(() => store.state.isLoggedIn);
+
+
+async function logout() {
+            await signOut(auth);
+            console.log("logout")
+            store.dispatch('logout');
+            router.push('/');
+        }
 
 function savePosition(e) {
     const target = e.currentTarget;
@@ -91,12 +116,23 @@ function resizeNavLink() {
         }
     });
 }
+function handleStorageChange(event) {
+    console.log(event);
+    if (event.key === 'islogged' && event.storageArea === localStorage) {
+        console.log('here');
+        userLogged.value = true;
+    }
+}
 
 const navBarScroller = () => parseInt(scrollY) >= 200 ? (isScroll.value = true) : (isScroll.value = false);
+
+
 
 onMounted(() => {
     window.addEventListener('resize', resizeNavLink);
     window.addEventListener('scroll', navBarScroller);
+
+    window.addEventListener('storage', handleStorageChange);
 
     function getPositionLink() {
         if(window.sessionStorage.getItem('nav-link-pos')) {
