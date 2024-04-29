@@ -1,31 +1,21 @@
 <template>
-    <div id="app" class="relative bg-gray-100 min-h-screen">
+    <div class="relative bg-gray-100 min-h-screen">
         <div class="absolute inset-0 z-0 bg-gradient-to-r from-blue-500 to-purple-500 animate-pulse">
         <section class="container mx-auto px-4 py-16">
-        <h2 class="text-2xl font-bold mb-8 text-gray-600">Latest Blog Posts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <blogpost v-for="post in blogPosts" :key="post.id" :title="post.title" :coach="post.coach" />
-        </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-8">Your Application Name</h1>
+            <p class="text-xl text-gray-600 text-center max-w-md mb-8">
+            **Description of your application and its benefits.** Briefly explain what your application does and the value it offers to users.
+            </p>
+            <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            Sign Up - **Start Your Journey Today**
+            </a>
         </section>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
-    import blogpost from '@/components/blogpost.vue'
-    export default {
-    components: {
-    blogpost,
-    },
-    data() {
-    return {
-        blogPosts: [
-                { id: 1, title: "Post Title 1", coach: "A short description of the post content." },
-                { id: 2, title: "Post Title 2", coach: "Another post with a brief description." },
-            ]
-        }
-    }
-}
+
 </script>
 
 <style scoped>
