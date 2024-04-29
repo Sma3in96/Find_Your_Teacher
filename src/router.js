@@ -5,7 +5,8 @@ import SignupPage from './views/auth/SignupPage.vue';
 import RequestReceived from './views/request/RequestReceived.vue';
 import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue';
 import CoachdetailPage from './views/coaches/CoachdetailPage.vue';
-
+import landingpage from './views/landingpage.vue';
+import NotfoundPage from './views/NotfoundPage.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -25,6 +26,14 @@ const router = createRouter({
         {
             path: '/register',
             component: CoachregistrationPage
+        },
+        {
+            path: '/home',
+            component: landingpage,
+        },
+        {
+            path: '/notfoundpage',
+            component: NotfoundPage,
         },
         // AUTH
         {

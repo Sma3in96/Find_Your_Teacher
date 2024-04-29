@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowUmdGlobalAccess": true,
+    "baseUrl": ".",
+    "paths": {
+    "src/*": ["src/*"],
+    "components/*": ["src/components/*"],
+    "views/*": ["src/views/*"]
+    },
+    "types": ["vuetify__esm-20200301"]
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.js", "src/**/*.jsx"],
+    "exclude": ["node_modules", "dist"]
+}
