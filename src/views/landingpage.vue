@@ -41,7 +41,7 @@
     }
 }
 .animate-pulse {
-    animation: pulse 2s infinite ease-in-out;
+    animation: pulse 4s infinite ease-in-out;
     opacity: 0.8;
 }
 .container {
