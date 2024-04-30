@@ -1,5 +1,5 @@
 <template>
-    <div class="search-bar bg-teal-900 p-6 bg-opacity-50 justify-between rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
+    <div class="search-bar bg-teal-900 p-6 bg-opacity-50 justify-between relative rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
         <div class="flex gap-4">
             <button
             v-if="!showSearch"
@@ -30,30 +30,71 @@
         </button>
         </div>
 
-        <button class="filter-icon">
+        <button @click="showFilters = !showFilters" class="filter-icon">
                 <box-icon name='filter'></box-icon>
         </button>
-
-        <div class="filter-options">
-        <!-- Your filter options go here -->
-        <label><input type="checkbox"> Option 1</label><br>
-        <label><input type="checkbox"> Option 2</label><br>
-        <label><input type="checkbox"> Option 3</label><br>
+        
+        <div
+        v-show="showFilters"
+        class="bg-teal-600 absolute right-2 flex flex-col p-4 rounded-md shadow-md transition-all duration-300 ease-in-out"
+        >
+            <div class="flex justify-between gap-4">
+            <div class="mb-4 px-3 py-3 rounded-md hover:shadow-md">
+                <h3 class="text-teal-900 mb-2">Specialization:</h3>
+                <label
+                v-for="option in options"
+                :key="option"
+                class="flex items-center mb-2 last:mb-0"
+                >
+                    <input type="checkbox" :value="option" v-model="selectedSpe" class="mr-2" />
+                        <span>{{ option }}</span>
+                </label>
+            </div>
+            <div class="mb-4 px-3 py-3 rounded-md hover:shadow-md">
+                <h3 class="text-teal-900 mb-2">Programming Languages:</h3>
+                <label
+                v-for="lang in Languages"
+                :key="lang"
+                class="flex items-center mb-2 last:mb-0"
+                >
+                    <input type="checkbox" :value="lang" v-model="selectedLanguages" class="mr-2" />
+                        <span>{{ lang }}</span>
+                </label>
+            </div>
+            </div>
+            <div class="flex justify-center gap-5">
+                <button
+                @click="cancelFilter"
+                class="bg-white text-teal-600 px-2 py-1 rounded-md hover:bg-gray-200 transition-colors duration-200 ease-in-out"
+                >
+                Cancel
+                </button>
+                <button
+                @click="applyFilter"
+                class="bg-white text-teal-600 px-2 py-1 rounded-md hover:bg-gray-200 transition-colors duration-200 ease-in-out"
+                >
+                Apply
+                </button>
+            </div>
         </div>
     </div>
 
-<div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
+    <div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
     <div class="flex justify-end">
         <router-link to="/register">
-            <button class=" bg-teal-100 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
+            <button  class=" bg-teal-100 hover:bg-teal-950 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
     </div>
-        <cardCoach
-            v-for="coach in filteredCoaches"
-            :coach="coach"
-            :key="coach.id"
-        ></cardCoach>
-</div>
+    <div v-show="!dataReady" class="flex justify-center">
+        <img src="../../assets/loading.svg" alt="loading..." class="src">
+    </div>
+    <cardCoach
+        v-show="dataReady"
+        v-for="coach in filteredCoaches"
+        :coach="coach"
+        :key="coach.id"
+    ></cardCoach>
+    </div>
 
 </template>
 
@@ -62,12 +103,40 @@ import { ref, onMounted } from 'vue';
 import cardCoach from "../../components/cardCoach.vue";
 import {db} from '../../firebase.js';
 import {getDocs, collection} from 'firebase/firestore'
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const store = useStore();
 
 
+const showFilters = ref(false);
+const dataReady = ref(false);
 const searchQuery = ref('');
 let allCoaches = [];
 const filteredCoaches = ref([]);
 const showSearch = ref(false);
+const selectedSpe = ref([]);
+const selectedLanguages = ref([]);
+
+const options = [
+        'front-end',
+        'back-end',
+        'design',
+    ]
+const Languages = [
+        'python',
+        'javascript',
+        'html',
+        'css',
+        'C',
+        'C++',
+        'C#',
+        'PHP',
+        'Swift',
+        'Java',
+        'flutter'
+    ];
 
 onMounted( async () => {
     let coaches = await getDocs(collection(db, 'coachs'))
@@ -77,8 +146,27 @@ onMounted( async () => {
             data: coach.data()});
     })
     filteredCoaches.value = allCoaches;
+    dataReady.value = true;
 
 })
+
+
+
+const cancelFilter = () => {
+  showFilters.value = false;
+  selectedSpe.value = [];
+  selectedLanguages.value = [];
+  filteredCoaches.value = allCoaches;
+}
+
+const applyFilter = () => {
+    filteredCoaches.value = allCoaches.filter((coach) => {
+    const hasSelectedSpecialization = selectedSpe.value.every((spe) => coach.data.specialization.includes(spe));
+    const hasSelectedLanguage = selectedLanguages.value.every((lang) => coach.data.languages.includes(lang));
+    return hasSelectedSpecialization && hasSelectedLanguage;
+  });
+  showFilters.value = false;
+}
 
 const toggleSearch = () => {
     showSearch.value = !showSearch.value;
@@ -88,8 +176,7 @@ const toggleSearch = () => {
 
 const filterCoaches = () => {
     if (searchQuery.value) {
-        console.log(searchQuery.value);
-        filteredCoaches.value = allCoaches.filter(coach => coach.data.firstName.includes(searchQuery.value));
+        filteredCoaches.value = allCoaches.filter(coach => coach.data.firstName.toLocaleLowerCase().includes(searchQuery.value.toLocaleLowerCase()));
     } else {
         filteredCoaches.value = allCoaches;
     }
@@ -117,5 +204,6 @@ padding: 5px;
     color: black;
     margin-left: -10px;
 }
+
 
 </style>

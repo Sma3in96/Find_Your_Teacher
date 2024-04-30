@@ -34,6 +34,10 @@ import { auth } from '@/firebase.js';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import  router  from '@/router.js';
 import { useStore } from 'vuex';
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+
 
 const store = useStore();
 
@@ -47,7 +51,12 @@ const submitFunction = async (values) => {
         await signInWithEmailAndPassword(auth, values.email, values.password)
         .then(() => {
             store.dispatch('login');
-            router.push('/')
+            const redirectRoute = route.query.redirect
+            if (redirectRoute) {
+                router.push(redirectRoute)
+            } else {
+                router.push('/')
+            }
         }).catch((err) => {
             alert("error")
         });
