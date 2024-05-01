@@ -85,6 +85,7 @@ const authPage = computed(() => route.name === 'login' || route.name === 'signup
 const userLogged = computed(() => store.state.isLoggedIn);
 
 
+
 async function logout() {
             await signOut(auth);
             console.log("logout")
@@ -133,6 +134,7 @@ onMounted(() => {
     window.addEventListener('scroll', navBarScroller);
 
     window.addEventListener('storage', handleStorageChange);
+
 
     function getPositionLink() {
         if(window.sessionStorage.getItem('nav-link-pos')) {
