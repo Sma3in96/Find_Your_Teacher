@@ -9,7 +9,7 @@
             Welcome to our platform, where aspiring web developers find guidance and expertise to fuel their journey towards mastery. Our website is your gateway to a community of seasoned web development coaches dedicated to empowering students like you with the skills and knowledge needed to thrive in the digital landscape. Whether you're a beginner seeking foundational understanding or an experienced coder aiming to refine your craft, our tailored coaching sessions cater to all levels of expertise. Join us and embark on a transformative learning experience, where every line of code you write propels you closer to your goals."
         </p>
             <div>
-            <router-link to="/auth/signup" class="btn">
+            <router-link to="/home" class="btn">
                 Start Your Coding Journey Now
             </router-link>
             </div>

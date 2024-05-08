@@ -43,11 +43,16 @@
 <script setup>
 import { ref } from 'vue';
 import { auth } from '@/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '@/firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
+import { useStore } from 'vuex';
+import router from '@/router';
+
+
+const store = useStore();
 
 const schema = yup.object({
     username: yup.string().required("Username is required").min(3, "username must be at least 3 characters"),
@@ -64,11 +69,14 @@ const submitFunction = async (values) => {
             userName: values.username,
             coach: false
             })
+            router.push('/auth/login')
         }).catch((err) => {console.log(err)});
-
+        
     } catch (e) { 
         alert("something went wrong")
     }
+    
+
 };
 </script>
 

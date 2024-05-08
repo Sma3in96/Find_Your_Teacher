@@ -4,7 +4,7 @@
         class="bg-teal-800 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
     >
         <div class="flex py-4">
-            <h1 class="font-bold text-2xl">LOGO</h1>
+            <img width="56" height="64" src="../assets/teacher.png">
         </div>
 
         <div class="routers h-full divide-line relative pl-4 flex justify-between flex-1 font-semibold">
@@ -15,27 +15,27 @@
                     class="absolute bottom-0 left-[15px] h-full w-[82px] duration-300 ease-out transition-all border-b-[4px] bg-teal-500"
                 ></span>
                 <router-link
-                    to="/"
+                    to="/home"
                     @click="savePosition($event)"
                 >
                     <div>home</div>
                     <box-icon name='home'></box-icon>
                 </router-link>
                 <router-link
-                    to="/coaches"
+                    v-show="userLogged && userIsCoach"
+                    :to="{name: 'coachprofile', params: {id: userID}}"
                     @click="savePosition($event)"
                 >
-                    <div>coaches</div>
-                    <box-icon
-                        type='solid'
-                        name='collection'
-                    ></box-icon>
+                    <div>My profile</div>
+                    <box-icon name='user-circle'></box-icon>
                 </router-link>
                 <router-link
+                    v-show="userLogged && userIsCoach"
                     to="/requests"
                     @click="savePosition($event)"
                 >
-                    <div>requests</div>
+                    <div class="requests">
+                        requests</div>
                     <box-icon name='message-square-dots'></box-icon>
                 </router-link>
             </nav>
@@ -83,14 +83,15 @@ const activeLink = ref(null);
 const isScroll = ref(false);
 const authPage = computed(() => route.name === 'login' || route.name === 'signup' ? false : true);
 const userLogged = computed(() => store.state.isLoggedIn);
-
+const userIsCoach = computed(() => store.state.user_is_coach);
+const userID = computed(() => store.state.user_id);
 
 
 async function logout() {
             await signOut(auth);
             console.log("logout")
             store.dispatch('logout');
-            router.push('/');
+            router.push('/home');
         }
 
 function savePosition(e) {
@@ -127,7 +128,9 @@ function handleStorageChange(event) {
 
 const navBarScroller = () => parseInt(scrollY) >= 200 ? (isScroll.value = true) : (isScroll.value = false);
 
-
+const profileUser = () => {
+    router.push(`/profile/${userID.value}`);
+}
 
 onMounted(() => {
     window.addEventListener('resize', resizeNavLink);
@@ -214,5 +217,18 @@ nav a box-icon {
     100% {
         clip-path: circle(100% at 50% 50%);
     }
+}
+.requests {
+    position: relative;
+}
+.requests::after {
+    content: ""; /* Add empty content to create the dot */
+    width: 10px; /* Set the width of the dot */
+    height: 10px; /* Set the height of the dot */
+    background-color: red; /* Set the background color to red */
+    position: absolute; /* Make the dot absolutely positioned */
+    top: 0; /* Position the dot at the top */
+    right: 0; /* Position the dot at the right */
+    border-radius: 50%; /* Make the dot a circle */
 }
 </style>

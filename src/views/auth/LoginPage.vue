@@ -35,6 +35,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import  router  from '@/router.js';
 import { useStore } from 'vuex';
 import { useRoute, useRouter } from 'vue-router';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/firebase.js';
 
 const route = useRoute();
 
@@ -49,16 +51,21 @@ const schema = yup.object({
 const submitFunction = async (values) => {
     try {
         await signInWithEmailAndPassword(auth, values.email, values.password)
-        .then(() => {
+        .then( async (userDetails) => {
+            const userID = userDetails.user.uid;
+            const user =  await getDoc(doc(db, 'users', userID))
+            store.dispatch('setUser', user.data().userName);
+            store.dispatch('setUserId', userID);
             store.dispatch('login');
+            store.dispatch('setCoach', user.data().coach);
             const redirectRoute = route.query.redirect
             if (redirectRoute) {
                 router.push(redirectRoute)
             } else {
-                router.push('/')
+                router.push('/home')
             }
         }).catch((err) => {
-            alert("error")
+            console.error(err)
         });
 
     } catch (e) { 
