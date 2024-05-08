@@ -7,12 +7,13 @@ import CoachregistrationPage from './views/coaches/CoachregistrationPage.vue';
 import CoachdetailPage from './views/coaches/CoachdetailPage.vue';
 import landingpage from './views/landingpage.vue';
 import NotfoundPage from '@/views/NotfoundPage.vue';
+import CoachEditPage from './views/coaches/coachEditPage.vue';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/',
+            path: '/home',
             component: CoachlistPage
         },
         {
@@ -28,7 +29,7 @@ const router = createRouter({
             component: CoachregistrationPage
         },
         {
-            path: '/home',
+            path: '/',
             component: landingpage,
             name: 'home',
         },
@@ -44,9 +45,15 @@ const router = createRouter({
             name: 'signup'
         },
         {
-            path: '/coachprofile/:id',
+            path: '/coachprofile/:id?',
             component: CoachdetailPage,
             name: 'coachprofile',
+            props: true,
+        },
+        {
+            path: '/coachprofile/edit/:id?',
+            component: CoachEditPage,
+            name: 'coachedit',
             props: true,
         },
         {

@@ -10,7 +10,7 @@
         <p class="text-xl text-gray-200 text-center mb-8">
         Oops! We can't seem to find the page you're looking for.
         </p>
-        <router-link to="/" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full flex items-center">
+        <router-link to="/home" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full flex items-center">
         <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7"></path></svg>
         Go Back Home
         </router-link>

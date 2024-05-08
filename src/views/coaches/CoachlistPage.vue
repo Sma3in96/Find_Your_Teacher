@@ -94,6 +94,11 @@
         :coach="coach"
         :key="coach.id"
     ></cardCoach>
+    <div v-show="noResult" class="text-black flex justify-center" >
+        <div>
+        <img src="@/assets/icons8-nothing-found-80.png"> </div>
+        <span class="py-5" >No coach found</span> 
+    </div>
     </div>
 
 </template>
@@ -118,6 +123,7 @@ const filteredCoaches = ref([]);
 const showSearch = ref(false);
 const selectedSpe = ref([]);
 const selectedLanguages = ref([]);
+const noResult = ref(false);
 
 const options = [
         'front-end',
@@ -151,36 +157,73 @@ onMounted( async () => {
 })
 
 
-
+// cancel all the filters
 const cancelFilter = () => {
-  showFilters.value = false;
-  selectedSpe.value = [];
-  selectedLanguages.value = [];
-  filteredCoaches.value = allCoaches;
+    showFilters.value = false;
+    selectedSpe.value = [];
+    selectedLanguages.value = [];
+    filteredCoaches.value = allCoaches;
 }
 
+
+// return the selected coaches according to the selected filter
 const applyFilter = () => {
     filteredCoaches.value = allCoaches.filter((coach) => {
     const hasSelectedSpecialization = selectedSpe.value.every((spe) => coach.data.specialization.includes(spe));
     const hasSelectedLanguage = selectedLanguages.value.every((lang) => coach.data.languages.includes(lang));
     return hasSelectedSpecialization && hasSelectedLanguage;
-  });
-  showFilters.value = false;
+    });
+    if (filteredCoaches.value.length === 0) {
+        noResult.value = true;
+    }
+    else {
+        noResult.value = false;
+    }
+    showFilters.value = false;
 }
 
+// Show the search bar
 const toggleSearch = () => {
     showSearch.value = !showSearch.value;
     searchQuery.value = '';
     filteredCoaches.value = allCoaches;
 }
 
+// search function for the current search query
+// ---------------------------------------------------------------- 
 const filterCoaches = () => {
     if (searchQuery.value) {
-        filteredCoaches.value = allCoaches.filter(coach => coach.data.firstName.toLocaleLowerCase().includes(searchQuery.value.toLocaleLowerCase()));
+    filteredCoaches.value = searchCoaches(allCoaches, searchQuery.value);
+    if (filteredCoaches.value.length === 0) {
+        noResult.value = true;
+    } else {
+        noResult.value = false;
+    }
+    
     } else {
         filteredCoaches.value = allCoaches;
     }
 };
+// searchCoaches returns a list of all the available search queries
+function searchCoaches(coaches, searchQuery) {
+    const lowerCaseSearchQuery = searchQuery.toLowerCase();
+    const searchRegex = new RegExp(lowerCaseSearchQuery.toLowerCase(), 'i')
+    return coaches.filter(coach => {
+        function searchInData(data) {
+            if (typeof data === 'string') {
+            return searchRegex.test(data);
+            } else if (Array.isArray(data)) {
+            return data.some(item => searchInData(item));
+            } else if (typeof data === 'object' && data !== null) {
+            return Object.values(data).some(value => searchInData(value));
+        }
+    return false;
+    }
+
+        return searchInData(coach.data);
+    });
+}
+
 
 
 

@@ -1,4 +1,5 @@
 <template>
+
     <div class="coverpage">
     <img src="@/hooks/exp landing1.png" alt="landing page">
     </div>

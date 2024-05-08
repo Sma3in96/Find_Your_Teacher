@@ -103,12 +103,11 @@
     </form>
     </div>
     
-  </template>
-  
+</template>
 <script setup>
     import { onMounted, ref } from 'vue';
     import {db, storage} from '../../firebase.js';
-    import {collection, addDoc} from 'firebase/firestore';
+    import {collection, addDoc, doc, setDoc} from 'firebase/firestore';
     import router from '@/router.js';
     import { ref as stRef, uploadBytes, getDownloadURL } from 'firebase/storage';
     import { useStore } from 'vuex';
@@ -175,7 +174,9 @@
             const url = await getDownloadURL(uploadTask.ref);
             formData.pic_link.value = url;
         }
-        addDoc(collection(db, 'coachs'), {
+        const userID = store.state.user_id;
+        const docRef = doc(db, 'coachs', userID);
+        setDoc(docRef, {
             firstName: formData.firstName.value,
             secondName: formData.secondName.value,
             email: formData.email.value,
@@ -189,7 +190,9 @@
             comments: [],
             requests: []
         });
-
+        setDoc(doc(db, 'users', userID), {
+            coach: true,
+            }, {merge: true})
         router.push('/');
     }
     onMounted (() => {
