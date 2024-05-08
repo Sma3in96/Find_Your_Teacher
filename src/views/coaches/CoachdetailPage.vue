@@ -73,8 +73,12 @@
           <button @click="addComment" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add Comment</button>
         </div>
       </div>
+
     </div>
+    <div class="bg-green-100 p-8 rounded-md text-black shadow-md" v-html="currentSectionContent"></div>
+  </div>
 </template>
+
 
 <script setup>
     import { useRoute } from 'vue-router';
@@ -172,3 +176,9 @@
         router.push({name: "coachedit", params: {id: id}})
     }
 </script>
+
+<style scoped>
+.button {
+  @apply px-4 py-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50;
+}
+</style>
