@@ -75,8 +75,7 @@
       </div>
 
     </div>
-    <div class="bg-green-100 p-8 rounded-md text-black shadow-md" v-html="currentSectionContent"></div>
-  </div>
+    <!-- <div class="bg-green-100 p-8 rounded-md text-black shadow-md" v-html="currentSectionContent"></div> -->
 </template>
 
 
