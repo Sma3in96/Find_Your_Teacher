@@ -1,9 +1,9 @@
 <template>
-    <div class="max-w-xl mx-auto">
+    <div class="max-w-xl mx-auto ">
         <div class="text-center mb-8">
             <p class="text-lg text-teal-500 font-semibold mt-5">Welcome back! Please login to your account.</p>
         </div>
-        <Form @submit="submitFunction" :validation-schema="schema" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <Form @submit="submitFunction" :validation-schema="schema" class="Form shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Email :</label>
                 <Field type="email" name="email" id="email" placeholder="Enter your E-mail " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
@@ -16,13 +16,18 @@
                 <ErrorMessage name="password" class="text-xs text-red-500" />
             </div>
 
-            <div>
-            <p class="text-sm text-gray-600 mt-2">U don't have an account?</p> <router-link to="/auth/signup">Sign Up</router-link>
-            </div>
-
             <button type="submit" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 SUBMIT
             </button>
+
+            <div>
+            <p class="text-sm text-gray-600 mt-2">U don't have an account?</p> 
+            <button class=" mx-auto bg-inherit hover:bg-teal-700 text-black hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <router-link to="/auth/signup" >
+                Sign Up 
+            </router-link>
+            </button>
+            </div>
         </Form>
     </div>
 </template>
@@ -77,7 +82,7 @@ const submitFunction = async (values) => {
 </script>
 
 <style scoped>
-    form {
+    .Form {
     background-color: #eee;
     color: #000
 }

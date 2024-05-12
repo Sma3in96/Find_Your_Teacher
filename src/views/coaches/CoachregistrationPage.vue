@@ -28,23 +28,22 @@
                 <h6 :class="!formData.secondName.value ? 'text-red-600 text-xs' : 'hidden'">  * This field is required </h6>
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">E-mail</label>
-                <input type="email" required v-model="formData.email.value"
+                <label class="block text-gray-700 text-sm font-bold mb-2">Github</label>
+                <input type="text" required v-model="formData.github.value"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                :class="!formData.email.value ? 'border-red-500': 'border-green-500'">
-                <h6 :class="!formData.email.value ? 'text-red-600 text-xs' : 'hidden'">  * This field is required </h6>
+                >
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-                <textarea rows="4" v-model="formData.description.value" class="w-full"></textarea>
+                <textarea type="text" rows="4" v-model="formData.description.value" class="textarea w-full" ></textarea>
             </div>
-            <div class="mb-4" >
-                <label class="block text-gray-700 text-sm font-bold mb-2">specialization</label>
-                <div @click="toggleOptions" class="flex items-center space-x-2" @blur="closeOptions">
+            <div v-on-click-outside="closeOptions" class="mb-4" >
+                <label class="block text-gray-700 text-sm font-bold mb-2">Specialization</label>
+                <div v-click-outside="closeOptions" @click="toggleOptions" class="flex items-center space-x-2">
                     <input type="text" placeholder="Select a specialization" :value="selectedSpe.join(', ')" readonly 
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
-                    <span v-if="showOptions">▼</span>
+                    <span  v-if="showOptions">▼</span>
                     <span v-else>▲</span>
                 </div>
                 <div v-if="showOptions"  class="mt-2 bg-white border border-gray-300 rounded-lg shadow-md w-full" >
@@ -54,9 +53,9 @@
                     </label>
                 </div>
             </div>
-            <div class="mb-4" >
+            <div v-on-click-outside="closeLang" class="mb-4" >
                 <label class="block text-gray-700 text-sm font-bold mb-2">Languages</label>
-                <div @click="toggleLang" class="flex items-center space-x-2" @blur="closeLang">
+                <div @click="toggleLang" class="flex items-center space-x-2">
                     <input type="text" placeholder="Select a skill" :value="selectedLanguages.join(', ')" readonly 
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
@@ -111,9 +110,9 @@
     import router from '@/router.js';
     import { ref as stRef, uploadBytes, getDownloadURL } from 'firebase/storage';
     import { useStore } from 'vuex';
+    import { vOnClickOutside } from '@vueuse/components'
 
     const store = useStore();
-
 
     const options = [
         'front-end',
@@ -140,7 +139,7 @@
     const formData = {
         firstName: ref(''),
         secondName: ref(''),
-        email: ref(''),
+        github: ref(''),
         description: ref(''),
         linkLinkedIn: ref(''),
         phone: ref(''),
@@ -153,8 +152,6 @@
         uploadedFile.value = event.target.files[0];
     }
 
-    
-
     const toggleOptions = () => {
         showOptions.value = !showOptions.value;
     };
@@ -162,7 +159,9 @@
         showLang.value = !showLang.value;
     };
     const closeOptions = () => {
-        showOptions.value = false;
+        if (showOptions.value) {
+            showOptions.value = false;
+        }
     };
     const closeLang = () => {
         showLang.value = false;
@@ -179,7 +178,7 @@
         setDoc(docRef, {
             firstName: formData.firstName.value,
             secondName: formData.secondName.value,
-            email: formData.email.value,
+            github: formData.github.value,
             description: formData.description.value,
             specialization: selectedSpe.value,
             languages: selectedLanguages.value,
@@ -193,7 +192,7 @@
         setDoc(doc(db, 'users', userID), {
             coach: true,
             }, {merge: true})
-        router.push('/');
+        router.push('/home');
     }
     onMounted (() => {
         const intendedRoute = router.currentRoute.value.fullPath;
@@ -202,15 +201,18 @@
         } else {
             console.log(intendedRoute);
             router.push({ path: '/auth/login', query: {redirect: intendedRoute} });
-    }})
+    }
+    })
 
 
 </script>
   
 
 <style scoped>
- form {
+form {
     background-color: #eee;
     color: #000
- }
+}
+
+
 </style>

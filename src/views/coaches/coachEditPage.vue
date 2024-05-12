@@ -23,7 +23,12 @@
               <input type="text" required v-model="secondName"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               >
-              
+              <div class="mb-4 mt-2">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Github</label>
+                <input type="text" required v-model="github"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
+            </div>
           </div>
           <div class="mb-4">
               <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
@@ -154,7 +159,7 @@
         setDoc(docRef, {
             firstName: firstName.value,
             secondName: secondName.value,
-            email: email.value,
+            github: github.value,
             description: description.value,
             specialization: selectedSpe.value,
             languages: selectedLanguages.value,
@@ -171,7 +176,7 @@
     const user_id = store.state.user_id
     const firstName = ref("")
     const secondName = ref("")
-    const email = ref("")
+    const github = ref("")
     const description = ref("")
     const linkLinkedIn = ref("")
     const phone = ref("")
@@ -184,7 +189,7 @@
           console.log(coachData.value.firstName)
           firstName.value = coachData.value.firstName
           secondName.value = coachData.value.secondName
-          email.value = coachData.value.email
+          github.value = coachData.value.github
           description.value = coachData.value.description
           selectedSpe.value = coachData.value.specialization
           selectedLanguages.value = coachData.value.languages

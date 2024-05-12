@@ -1,10 +1,12 @@
 <template>
     <header
         :class="{ 'scroll-act': isScroll }"
-        class="bg-teal-800 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
+        class="bg-gradient-to-r from-teal-700 to-blue-300 pl-4 flex items-center top-[-5rem] sticky capitalize h-[64px] duration-300 ease-out transition-[top] shadow"
     >
         <div class="flex py-4">
+            <router-link to="/">
             <img width="56" height="64" src="../assets/teacher.png">
+            </router-link>
         </div>
 
         <div class="routers h-full divide-line relative pl-4 flex justify-between flex-1 font-semibold">
@@ -12,7 +14,7 @@
                 <span
                     v-show="authPage"
                     ref="activeLink"
-                    class="absolute bottom-0 left-[15px] h-full w-[82px] duration-300 ease-out transition-all border-b-[4px] bg-teal-500"
+                    class="absolute bottom-0 left-[15px] h-full w-[82px] duration-300 ease-out transition-all border-b-[4px] bg-teal-300"
                 ></span>
                 <router-link
                     to="/home"
@@ -183,7 +185,7 @@ nav a box-icon {
 }
 
 .auth-actions a {
-    @apply bg-teal-500 px-4 py-2 grid place-content-center relative z-10;
+    @apply bg-inherit px-4 py-2 grid place-content-center relative z-10;
 }
 
 .auth-actions a div {
@@ -194,7 +196,7 @@ nav a box-icon {
     @apply hidden max-[850px]:block
 }
 
-.auth-actions a:hover {
+.auth-actions:hover a:hover {
     @apply text-sky-500 duration-300
 }
 
