@@ -29,13 +29,18 @@
                 <ErrorMessage name="passwordConfirmation" class="text-xs text-red-500" />
             </div>
 
-            <div>
-            <p class="text-sm text-gray-600 mt-2">Already have an account?</p> <router-link to="/auth/login">Login</router-link>
-            </div>
-
             <button type="submit" class="block mx-auto bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 SUBMIT
             </button>
+
+            <div>
+            <p class="text-sm text-gray-600 mt-2">I already have an account</p> 
+            <button class=" mx-auto bg-inherit hover:bg-teal-700 text-black hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <router-link to="/auth/login" >
+                Log In 
+            </router-link>
+            </button>
+            </div>
         </Form>
     </div>
 </template>

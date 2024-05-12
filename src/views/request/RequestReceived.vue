@@ -3,7 +3,7 @@
     <loading />
 </div>
 <div v-for="(req, index) in requests" :key="req.id"  class="container mx-auto mt-10 max-w-screen">
-        <div :class="{ 'bg-gray-200 opacity-75': req.accepted }" class="bg-white rounded-lg shadow-lg p-8">
+        <div :class="{ 'bg-gray-200 opacity-75': req.accepted }" class="bg-gradient-to-r from-teal-400 to-blue-300 rounded-lg shadow-lg p-8">
         <h1 class="text-2xl text-black font-bold mb-4">Request Details</h1>
         <div class="mb-4">
             <p class="text-gray-600 mb-2"><strong>Student Name:</strong> {{ req.name }}</p>

@@ -1,6 +1,6 @@
 <template>
-    <div class="search-bar bg-teal-900 p-6 bg-opacity-50 justify-between relative rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
-        <div class="flex gap-4">
+    <div class="bar p-3  justify-between relative rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
+        <div class="flex gap-4 ">
             <button
             v-if="!showSearch"
             @click="toggleSearch"
@@ -11,7 +11,7 @@
             </button>
             
         <input
-            class="bg-teal-100 text-xl text-black border rounded p-1"
+            class="bg-white text-xl text-black border rounded p-1 searchBar"
             v-if="showSearch"
             type="text"
             v-model="searchQuery"
@@ -36,7 +36,8 @@
         
         <div
         v-show="showFilters"
-        class="bg-teal-600 absolute right-2 flex flex-col p-4 rounded-md shadow-md transition-all duration-300 ease-in-out"
+        v-on-click-outside="cancelFilter"
+        class="bg-blue-200 opacity-80 absolute right-2 flex flex-col p-4 rounded-md shadow-md transition-all duration-300 ease-in-out"
         >
             <div class="flex justify-between gap-4">
             <div class="mb-4 px-3 py-3 rounded-md hover:shadow-md">
@@ -46,8 +47,8 @@
                 :key="option"
                 class="flex items-center mb-2 last:mb-0"
                 >
-                    <input type="checkbox" :value="option" v-model="selectedSpe" class="mr-2" />
-                        <span>{{ option }}</span>
+                    <input type="checkbox" :value="option" v-model="selectedSpe"  class="mr-2" />
+                        <span >{{ option }}</span>
                 </label>
             </div>
             <div class="mb-4 px-3 py-3 rounded-md hover:shadow-md">
@@ -79,7 +80,7 @@
         </div>
     </div>
 
-    <div class="bg-teal-800 w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
+    <div class="bg-gradient-to-r from-white to-blue-200  w-[800px] max-w-[90%] mx-auto grid gap-4 p-4 rounded-lg shadow mt-5">
     <div class="flex justify-end">
         <router-link to="/register">
             <button  class=" bg-teal-100 hover:bg-teal-950 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
@@ -110,6 +111,7 @@ import {db} from '../../firebase.js';
 import {getDocs, collection} from 'firebase/firestore'
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { vOnClickOutside } from '@vueuse/components'
 
 const router = useRouter();
 const store = useStore();
@@ -187,6 +189,7 @@ const toggleSearch = () => {
     showSearch.value = !showSearch.value;
     searchQuery.value = '';
     filteredCoaches.value = allCoaches;
+    noResult.value = false;
 }
 
 // search function for the current search query
@@ -246,6 +249,22 @@ padding: 5px;
     height: 30px;
     color: black;
     margin-left: -10px;
+}
+
+.bar {
+    background-color: #93c572;
+    opacity: 90%;
+    @media screen and (max-width: 640px) {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+}
+
+.searchBar {
+    @media screen and (max-width: 640px) {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
 }
 
 

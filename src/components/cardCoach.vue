@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-teal-200 p-4 bg-opacity-50 rounded text-black border-white border">
+    <div class="bg-white bg-opacity-35 m-2 p-4 border rounded text-black ">
       <div class="flex justify-between items-center font-semibold">
         <div class="flex gap-4 items-center">
           <img
@@ -9,7 +9,7 @@
           >
           <p><router-link :to="{name: 'coachprofile', params: {id: coach.id, data: coach.data}}">{{ coach.data.firstName + ' ' + coach.data.secondName }}</router-link></p>
         </div>
-        <div class="bg-teal-100 px-3 py-2 rounded-md shadow-sm hover:text-gray-500" >{{ `${coach.data.price} $/hour` }}</div>
+        <div class=" text-orange-500 px-3 py-2 rounded-md shadow-sm hover:text-orange-600" >{{ `${coach.data.price} $/h` }}</div>
       </div>
       <div class=" items-center mt-4 gap-3 ">
         <div class="max-[500px]:text-balance">{{ coach.data.description }}</div>
@@ -25,7 +25,7 @@
                 <li 
                 v-for="spe in coach.data.specialization" 
                 :key="spe"
-                class="py-3 px-4 rounded-md shadow-md hover:bg-teal-200 transition-colors duration-200"
+                class="py-3 px-4 rounded-md shadow-md "
                 ><span class="text-gray-800 font-medium">{{ spe }}</span></li>
             </ul>
         </div>
