@@ -31,4 +31,4 @@ firebase deploy
 ```
 ## Links
 
-[ website likn ] (https://meet-ur-teacher.web.app/)
+[ website link ] (https://meet-ur-teacher.web.app/)
