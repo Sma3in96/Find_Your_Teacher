@@ -16,12 +16,6 @@
             <button v-show="!req.accepted" @click="rejectRequest(req, index)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reject</button>
                 </div>
         </div>
-        <!-- <div :class="{ 'bg-gray-200 opacity-75': req.accepted }" class="w-full">
-            <div v-if="req.accepted" class="bg-white rounded-lg shadow-lg p-8">
-                <span class="text-black"> Please contact the request sender throught this Email :</span>
-                <p class="text-gray-600 mb-2"><strong>Email:</strong> {{ req.email }}</p>
-            </div>
-        </div> -->
         <div v-if="req.accepted && !copied" class="fixed top-0 left-0 w-full h-full bg-gray-500 opacity-75 z-50 flex justify-center items-center">
             <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
                 <h2 class="text-xl font-bold mb-4">Request Accepted</h2>
@@ -72,9 +66,12 @@ onMounted( async () => {
     }
 })
 
+    // handle requests after acceptance
 const acceptRequest = (req) => {
     req.accepted = true;
 }
+
+// handle requests after rejection
 const rejectRequest = (req) => {
     if (confirm('Are you sure you want to reject this request?')) {
     requests.value = requests.value.filter((request) => {
@@ -83,6 +80,8 @@ const rejectRequest = (req) => {
     }
 }
 
+
+// copy email to clipboard
 const copyText = (text) => {
     navigator.clipboard.writeText(text);
     alert('Copied to clipboard');

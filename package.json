@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vee-validate/yup": "^4.12.6",
+    "@vee-validate/yup": "^4.12.8",
     "@vueuse/components": "^10.9.0",
     "boxicons": "^2.1.4",
     "click-outside-vue3": "^4.0.1",
     "firebase": "^10.11.0",
-    "vee-validate": "^4.12.6",
+    "vee-validate": "^4.12.8",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vuex": "^4.1.0",

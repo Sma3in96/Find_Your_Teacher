@@ -156,6 +156,7 @@
     isloaded.value = true;
 })
 
+    // add comment to comments attribute of the teacher, and update the view
     const addComment = async () => {
         comments.value.unshift({
             text: newComment.value,
@@ -168,6 +169,7 @@
         newComment.value = "";
     }
 
+    // add request to requests attribute of the teacher, and update the view
     const makearequest = async () => {
         requests.value.unshift({
             username : store.state.username || 'unknown',

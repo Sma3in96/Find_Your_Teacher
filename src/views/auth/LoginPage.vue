@@ -53,6 +53,7 @@ const schema = yup.object({
     password: yup.string().required("Password is required")
 });
 
+// Validate the forn after submit and signing the user
 const submitFunction = async (values) => {
     try {
         await signInWithEmailAndPassword(auth, values.email, values.password)
@@ -70,7 +71,7 @@ const submitFunction = async (values) => {
                 router.push('/home')
             }
         }).catch((err) => {
-            console.error(err)
+            alert(err)
         });
 
     } catch (e) { 

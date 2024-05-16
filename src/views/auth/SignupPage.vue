@@ -66,6 +66,7 @@ const schema = yup.object({
     passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required("Password confirmation is required"),
 });
 
+// validate the form fields and create a new user.
 const submitFunction = async (values) => {
     try {
         await createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -75,7 +76,7 @@ const submitFunction = async (values) => {
             coach: false
             })
             router.push('/auth/login')
-        }).catch((err) => {console.log(err)});
+        }).catch((err) => {alert(err)});
         
     } catch (e) { 
         alert("something went wrong")

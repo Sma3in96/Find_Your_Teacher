@@ -134,19 +134,27 @@
     }
 
     
-
+    // show and hide the Options
     const toggleOptions = () => {
         showOptions.value = !showOptions.value;
     };
+
+    // show and hide the Languages
     const toggleLang = () => {
         showLang.value = !showLang.value;
     };
+
+    // close the options.
     const closeOptions = () => {
         showOptions.value = false;
     };
+
+    // close the Languages.
     const closeLang = () => {
         showLang.value = false;
     }
+
+    // submit the form and send the data to the backend
     const submitFunction = async () => {
         if (uploadedFile.value) {
             const storageRef = stRef(storage, `uploads/${uploadedFile.value.name}`);
@@ -185,24 +193,22 @@
     onMounted(async () => {
         const coach = await getDoc(doc(db, 'coachs', user_id))
         if (coach.exists()) {
-          coachData.value = coach.data()
-          console.log(coachData.value.firstName)
-          firstName.value = coachData.value.firstName
-          secondName.value = coachData.value.secondName
-          github.value = coachData.value.github
-          description.value = coachData.value.description
-          selectedSpe.value = coachData.value.specialization
-          selectedLanguages.value = coachData.value.languages
-          linkLinkedIn.value = coachData.value.linkedIn
-          phone.value = coachData.value.phone
-          price.value = coachData.value.price
-          pic_link.value = coachData.value.pic_link
+            firstName.value = coachData.value.firstName
+            secondName.value = coachData.value.secondName
+            github.value = coachData.value.github
+            description.value = coachData.value.description
+            selectedSpe.value = coachData.value.specialization
+            selectedLanguages.value = coachData.value.languages
+            linkLinkedIn.value = coachData.value.linkedIn
+            phone.value = coachData.value.phone
+            price.value = coachData.value.price
+            pic_link.value = coachData.value.pic_link
         };
         });
 
 
 </script>
-  
+
 
 <style scoped>
 form {

@@ -148,24 +148,35 @@
         pic_link: ref(''),
     };
     const uploadedFile = ref('');
+
+    // handle the upload of the profile image
     const handleUpload = (event) => {
         uploadedFile.value = event.target.files[0];
     }
 
+    // open or close options div
     const toggleOptions = () => {
         showOptions.value = !showOptions.value;
     };
+
+    // close or show languages div
     const toggleLang = () => {
         showLang.value = !showLang.value;
     };
+
+    // close options div
     const closeOptions = () => {
         if (showOptions.value) {
             showOptions.value = false;
         }
     };
+
+    // close language div
     const closeLang = () => {
         showLang.value = false;
     }
+
+    // submit the form and send the data to the backend
     const submitFunction = async () => {
         if (uploadedFile.value) {
             const storageRef = stRef(storage, `uploads/${uploadedFile.value.name}`);
@@ -206,7 +217,6 @@
 
 
 </script>
-  
 
 <style scoped>
 form {

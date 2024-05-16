@@ -88,7 +88,7 @@ const userLogged = computed(() => store.state.isLoggedIn);
 const userIsCoach = computed(() => store.state.user_is_coach);
 const userID = computed(() => store.state.user_id);
 
-
+// log out the user and route to the home page
 async function logout() {
             await signOut(auth);
             console.log("logout")
@@ -96,6 +96,7 @@ async function logout() {
             router.push('/home');
         }
 
+// save the current position nav-link-pos
 function savePosition(e) {
     const target = e.currentTarget;
     if(target instanceof HTMLElement) {
@@ -111,6 +112,7 @@ function savePosition(e) {
     }
 }
 
+// Update the active link size
 function resizeNavLink() {
     const links = document.querySelectorAll('nav a');
     links.forEach((link) => {
@@ -120,6 +122,8 @@ function resizeNavLink() {
         }
     });
 }
+
+// store the userlogeed in localStorage
 function handleStorageChange(event) {
     console.log(event);
     if (event.key === 'islogged' && event.storageArea === localStorage) {

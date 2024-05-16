@@ -1,4 +1,5 @@
 <template>
+    <Loading v-show="!dataReady" />
     <div class="bar p-3  justify-between relative rounded border-black flex w-[800px] max-w-[90%] mx-auto mt-5">
         <div class="flex gap-4 ">
             <button
@@ -86,9 +87,6 @@
             <button  class=" bg-teal-100 hover:bg-teal-950 text-black font-bold py-2 px-4 rounded ">Register as coach</button>
         </router-link>
     </div>
-    <div v-show="!dataReady" class="flex justify-center">
-        <img src="../../assets/loading.svg" alt="loading..." class="src">
-    </div>
     <cardCoach
         v-show="dataReady"
         v-for="coach in filteredCoaches"
@@ -112,6 +110,7 @@ import {getDocs, collection} from 'firebase/firestore'
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { vOnClickOutside } from '@vueuse/components'
+import Loading from '../../components/loading.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -146,6 +145,7 @@ const Languages = [
         'flutter'
     ];
 
+// on mounted gets the date from the backend
 onMounted( async () => {
     let coaches = await getDocs(collection(db, 'coachs'))
     coaches.forEach((coach) => {
