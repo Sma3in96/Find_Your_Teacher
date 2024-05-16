@@ -1,29 +1,34 @@
-# nullproject
+# Find Your Teacher
 
-This template should help get you started developing with Vue 3 in Vite.
+Find Your Teacher is your one-stop shop for connecting with amazing teachers and finding the perfect learning experience. Whether you're a beginner or a seasoned learner, we have a wide range of teachers to suit your needs.
 
-## Recommended IDE Setup
+## Features:
+- sending requests
+- register as a coach
+- responsive
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Tools:
+- vue Js / vite
+- tailwind
+- firebase
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
+## Testing localy
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### compile and build
 
 ```sh
-npm run build
+npm build
 ```
+
+### deploy
+
+```sh
+firebase deploy
+```
+## Links
+
+[ website link ] (https://meet-ur-teacher.web.app/)
